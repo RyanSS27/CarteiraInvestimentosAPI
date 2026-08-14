@@ -14,18 +14,7 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ab3074e-6c6a-42b6-8141-de7aef6b88f5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/Controllers/WalletController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/Controllers/WalletController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/Infrastructure/Repositories/ITransactionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/Infrastructure/Repositories/ITransactionRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/Infrastructure/Repositories/TransactionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Adapters/Infrastructure/Repositories/TransactionRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Entities/Enums/TransactionType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Entities/Enums/TransactionType.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Entities/Transaction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Entities/Transaction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Services/Ports/IWalletService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Services/Ports/IWalletService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Services/WalletService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Domain/Services/WalletService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Dtos/WalletDtos/TransactionInputDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Dtos/WalletDtos/TransactionInputDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Dtos/WalletDtos/TransactionOutDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Dtos/WalletDtos/TransactionOutDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CarteiraInvestimentosAPI/Program.cs" afterDir="false" />
-    </list>
+    <list default="true" id="6ab3074e-6c6a-42b6-8141-de7aef6b88f5" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
