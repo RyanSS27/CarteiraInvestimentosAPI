@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarteiraInvestimentos - Sobre o Projeto</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .formula-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 8px;
+            font-family: monospace;
+            color: var(--brand);
+            font-size: 14px;
+            margin-top: 12px;
+            overflow-x: auto;
+        }
+
+        .flow-arrow {
+            color: var(--brand);
+            font-weight: bold;
+            margin: 0 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container" onclick="window.location.href='index.html'">
+                <div class="logo-icon">$</div>
+                <span class="logo-text">CarteiraInvestimentos<span class="text-brand">API</span></span>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="sobre.html" class="nav-link">Sobre</a>
+                <a href="demonstracao.html" class="nav-link btn-demo-nav">Demonstração</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content" style="padding: 0; max-width: 100%;">
+
+        <!-- Hero Section -->
+        <section class="hero-wrapper text-center" style="padding-bottom: 60px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h1 class="title title-gradient animate-up" style="margin-bottom: 16px;">
+                    Como o projeto funciona
+                </h1>
+                <p class="subtitle animate-up delay-100"
+                    style="font-size: 22px; color: var(--brand); margin-bottom: 24px; font-weight: 500;">
+                    Entenda a lógica por trás da consolidação da carteira
+                </p>
+                <p class="animate-up delay-200"
+                    style="font-size: 17px; color: var(--text-muted); line-height: 1.6; max-width: 700px; margin: 0 auto;">
+                    A aplicação foi desenhada para transformar um histórico bruto de operações em uma visão consolidada,
+                    calculando o preço médio de forma dinâmica e consumindo dados de mercado em tempo real.
+                </p>
+            </div>
+        </section>
+
+        <div style="max-width: 1000px; margin: 0 auto; padding: 0 24px;">
+
+
+            <!-- O Fluxo Principal -->
+            <section id="fluxo-principal" class="animate-up" style="padding: 60px 0;">
+                <h2 class="title text-center mb-4" style="font-size: 28px;">Fluxo Principal de Uso</h2>
+                <p class="text-center subtitle" style="margin-bottom: 50px; font-size: 16px;">Cada etapa utiliza os
+                    dados anteriores para chegar ao resultado final.</p>
+
+                <div style="position: relative; max-width: 500px; margin: 0 auto; padding: 10px 0;">
+
+                    <!-- Linha Vertical Conectora com Degradê -->
+                    <div
+                        style="position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--border-color) 0%, rgba(16, 185, 129, 0.4) 70%, var(--brand) 100%); transform: translateX(-50%); z-index: 0;">
+                    </div>
+
+                    <!-- Etapas do Fluxo -->
+                    <div style="display: flex; flex-direction: column; gap: 32px; position: relative; z-index: 1;">
+
+                        <div class="card card-hover"
+                            style="background: var(--bg-dark); border: 1px solid var(--border-color); padding: 16px 32px; border-radius: 12px; text-align: center; margin: 0 auto; width: 260px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                            <span
+                                style="display: block; font-size: 12px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; font-weight: bold;">Etapa
+                                1</span>
+                            <strong style="color: white; font-size: 16px;">Registre transações</strong>
+                        </div>
+
+                        <div class="card card-hover"
+                            style="background: var(--bg-dark); border: 1px solid var(--border-color); padding: 16px 32px; border-radius: 12px; text-align: center; margin: 0 auto; width: 260px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                            <span
+                                style="display: block; font-size: 12px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; font-weight: bold;">Etapa
+                                2 (INTERNO)</span>
+                            <strong style="color: white; font-size: 16px;">Preço médio pago é calculado</strong>
+                        </div>
+
+                        <div class="card card-hover"
+                            style="background: var(--bg-dark); border: 1px solid var(--border-color); padding: 16px 32px; border-radius: 12px; text-align: center; margin: 0 auto; width: 260px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                            <span
+                                style="display: block; font-size: 12px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; font-weight: bold;">Etapa
+                                3</span>
+                            <strong style="color: white; font-size: 16px;">Consulte a carteira</strong>
+                        </div>
+
+                        <div class="card card-hover glow-effect"
+                            style="background: rgba(17, 24, 39, 0.9); border: 1px solid var(--brand); padding: 16px 32px; border-radius: 12px; text-align: center; margin: 0 auto; width: 260px;">
+                            <span
+                                style="display: block; font-size: 12px; color: var(--brand); opacity: 0.8; text-transform: uppercase; margin-bottom: 4px; font-weight: bold;">Etapa
+                                4 (Externa)</span>
+                            <strong style="color: var(--brand); font-size: 16px;">Consulta da cotação atual e sua
+                                rentabilidade</strong>
+                        </div>
+
+                        <div class="card-hover"
+                            style="background: var(--brand-gradient); border: none; padding: 20px 32px; border-radius: 12px; text-align: center; margin: 0 auto; width: 280px; box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); transform: scale(1.05); margin-top: 16px;">
+                            <strong
+                                style="color: white; font-size: 18px; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                <span>✨</span> Resultado
+                            </strong>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- A Matemática da Carteira -->
+
+            <section id="calculos" class="animate-up" style="padding: 40px 0; border-top: 1px solid var(--border-color);">
+                <h2 class="title mb-4" style="font-size: 28px;">A Matemática da Carteira</h2>
+
+                <div class="grid"
+                    style="grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px; margin-top: 32px;">
+
+                    <!-- Quantidade -->
+                    <div class="card card-hover glow-effect card-math">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                            <div
+                                style="width: 40px; height: 40px; border-radius: 10px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                                📦</div>
+                            <h3 class="title" style="font-size: 18px; color: white; margin: 0;">1. Quantidade em
+                                Carteira</h3>
+                        </div>
+                        <p class="subtitle" style="line-height: 1.7; margin-bottom: 24px;">O saldo atual é a diferença
+                            exata entre as aquisições e as vendas. O sistema possui travas de validação para impedir que
+                            uma venda ultrapasse o saldo existente.</p>
+
+                        <div class="formula-box-modern">
+                            <span class="formula-label">Fórmula</span>
+                            <div class="formula-math">Qtd Atual = Compras − Vendas</div>
+                        </div>
+                    </div>
+
+                    <!-- Preço Médio -->
+                    <div class="card card-hover glow-effect card-math">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                            <div
+                                style="width: 40px; height: 40px; border-radius: 10px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                                🎯</div>
+                            <h3 class="title" style="font-size: 18px; color: white; margin: 0;">2. Preço Médio (Custo
+                                Unitário)</h3>
+                        </div>
+                        <p class="subtitle" style="line-height: 1.7; margin-bottom: 24px;">Representa o custo médio real
+                            pago por ação. Ele é recalculado a cada nova <b>compra</b>. Vendas reduzem a quantidade, mas
+                            preservam o preço médio histórico.</p>
+
+                        <div class="formula-box-modern">
+                            <span class="formula-label">Fórmula</span>
+                            <div class="formula-math">
+                                Novo PM = [(Qtd Atual × PM Atual) +<br>(Qtd Comprada × Preço Compra)]<br>÷ (Qtd Atual +
+                                Qtd Comprada)
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lucro e Prejuízo -->
+                    <div class="card card-hover glow-effect card-math">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                            <div
+                                style="width: 40px; height: 40px; border-radius: 10px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                                💸</div>
+                            <h3 class="title" style="font-size: 18px; color: white; margin: 0;">3. Lucro ou Prejuízo
+                            </h3>
+                        </div>
+                        <p class="subtitle" style="line-height: 1.7; margin-bottom: 24px;">A diferença nominal entre o
+                            que foi efetivamente gasto para montar a posição (Total Investido) e o que essa posição vale
+                            hoje no mercado (Cotação via Brapi).</p>
+
+                        <div class="formula-box-modern">
+                            <span class="formula-label">Fórmula</span>
+                            <div class="formula-math">Resultado = (Qtd × Cotação Atual) −<br>(Qtd × Preço Médio)</div>
+                        </div>
+                    </div>
+
+                    <!-- Rentabilidade -->
+                    <div class="card card-hover glow-effect card-math">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                            <div
+                                style="width: 40px; height: 40px; border-radius: 10px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                                📈</div>
+                            <h3 class="title" style="font-size: 18px; color: white; margin: 0;">4. Rentabilidade (%)
+                            </h3>
+                        </div>
+                        <p class="subtitle" style="line-height: 1.7; margin-bottom: 24px;">A métrica que transforma o
+                            resultado nominal em um indicador percentual, permitindo comparar o desempenho de ativos de
+                            diferentes faixas de preço de forma justa.</p>
+
+                        <div class="formula-box-modern">
+                            <span class="formula-label">Fórmula</span>
+                            <div class="formula-math">Rentabilidade = [(Valor de Mercado −<br>Total Investido) ÷ Total
+                                Investido] × 100</div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Fallback Mechanism -->
+            <section class="animate-up" style="padding: 60px 0;">
+                <div class="alert-box hover-scale-warning"
+                    style="flex-direction: column; padding: 32px; font-size: 14px; margin: 0; background-color: rgba(234, 179, 8, 0.05); border-color: rgba(234, 179, 8, 0.3); border-radius: 12px; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                        <span style="font-size: 28px; filter: drop-shadow(0 0 10px rgba(234, 179, 8, 0.4));">⚠️</span>
+                        <h2 class="title" style="margin: 0; font-size: 20px; color: white;">E quando a cotação falhar?
+                        </h2>
+                    </div>
+                    <p style="margin-bottom: 12px; line-height: 1.7; color: var(--text-muted); font-size: 15px;">
+                        Se um ticker não for encontrado ou ocorrer instabilidade na comunicação com o serviço externo, a
+                        API aciona um <b>mecanismo de fallback seguro</b>. O ativo afetado utiliza seu próprio <i>Preço
+                            Médio</i> como referência de cotação atual.
+                    </p>
+                    <ul
+                        style="color: var(--text-muted); font-size: 15px; margin-left: 20px; line-height: 1.7; margin-bottom: 16px;">
+                        <li>O Lucro/Prejuízo deste ativo fica temporariamente em <b>R$ 0,00</b>.</li>
+                        <li>A rentabilidade do ativo assume <b>0,00%</b>.</li>
+                        <li>O cálculo consolidado do restante da carteira não é interrompido.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Arquitetura e Objetivo -->
+            <section id="arquitetura" class="animate-up text-center"
+                style="padding: 60px 0 100px; border-top: 1px solid var(--border-color);">
+                <h2 class="title mb-4" style="font-size: 28px;">Arquitetura e Engenharia</h2>
+                <p
+                    style="font-size: 16px; color: var(--text-muted); line-height: 1.7; margin-bottom: 40px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    A aplicação adota a <b>Arquitetura Hexagonal (Ports and Adapters)</b>, isolando completamente as
+                    regras matemáticas e o domínio de negócios da infraestrutura tecnológica. Isso garante que o núcleo
+                    da aplicação desconheça se os dados vêm do MongoDB ou se os preços são consumidos da Brapi.
+                </p>
+
+                <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; margin-bottom: 48px;">
+                    <div
+                        style="padding: 16px 24px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px;">
+                        <span
+                            style="display: block; font-size: 12px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Padrão
+                            Arquitetural</span>
+                        <strong style="color: white; font-size: 16px;">Domain-Driven Design (DDD)</strong>
+                    </div>
+                    <div
+                        style="padding: 16px 24px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px;">
+                        <span
+                            style="display: block; font-size: 12px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Padrão
+                            de Acesso</span>
+                        <strong style="color: white; font-size: 16px;">Repository Pattern</strong>
+                    </div>
+                    <div
+                        style="padding: 16px 24px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px;">
+                        <span
+                            style="display: block; font-size: 12px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px;">Comunicação
+                            Externa</span>
+                        <strong style="color: white; font-size: 16px;">Client Flurl HTTP</strong>
+                    </div>
+                </div>
+
+                <div class="card glow-effect"
+                    style="background: rgba(16, 185, 129, 0.05); border: 1px solid var(--brand); max-width: 800px; margin: 0 auto; text-align: left; padding: 32px;">
+                    <h3 class="title" style="color: var(--brand); font-size: 18px; margin-bottom: 12px;">Objetivo do
+                        Projeto</h3>
+                    <p style="color: var(--text-muted); line-height: 1.7; font-size: 15px; margin: 0;">
+                        Este software possui um escopo intencionalmente enxuto. O foco não é reproduzir uma corretora
+                        comercial, mas sim demonstrar domínio na construção de uma API REST escalável capaz de persistir
+                        dados no-SQL, processar regras de negócio estritas, integrar serviços de terceiros, aplicar
+                        injeção de dependência e entregar uma resposta limpa e consolidada através de DTOs.
+                    </p>
+                </div>
+            </section>
+
+            <section id="codigo-fonte" class="animate-up text-center"
+                style="padding: 60px 0 80px; border-top: 1px solid var(--border-color); margin-top: 60px;">
+                <h2 class="title mb-4" style="font-size: 28px;">Explore o Projeto na Prática</h2>
+                <p
+                    style="font-size: 16px; color: var(--text-muted); line-height: 1.7; margin-bottom: 40px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    Por se tratar de uma API REST, o verdadeiro coração desta aplicação está na sua <b>arquitetura e
+                        estruturação de código</b>. Acesse o repositório para analisar os padrões aplicados ou interaja
+                    com a interface de demonstração consumindo os dados.
+                </p>
+
+                <div class="flex items-center gap-4" style="justify-content: center;">
+
+                    <!-- Botão Ver Código (Destacado propositalmente com cor sólida para ser o mais importante) -->
+                    <button onclick="window.open('https://github.com/RyanSS27/CarteiraInvestimentosAPI')"
+                        class="btn-primary"
+                        style="padding: 16px 32px; font-size: 16px; background: var(--brand); color: var(--bg-dark); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                        </svg>
+                        Analisar Código-fonte
+                    </button>
+
+                    <!-- Botão Explorar Demonstração -->
+                    <button onclick="window.location.href='demonstracao.html'" class="btn-secondary"
+                        style="padding: 16px 32px; font-size: 16px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 3h6v6"></path>
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="10 14 21 3"></polyline>
+                        </svg>
+                        Ver Demonstração
+                    </button>
+
+                </div>
+            </section>
+        </div>
+    </main>
+    <!-- Adicione o <footer> no final do <body> em TODAS as suas páginas, logo antes das tags <script>: -->
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- Logo no topo à esquerda -->
+            <div class="footer-top">
+                <div class="logo-container" style="cursor: default; opacity: 0.8;">
+                    <div class="logo-icon" style="width: 24px; height: 24px; font-size: 14px; box-shadow: none;">$</div>
+                    <span class="logo-text" style="font-size: 16px;">CarteiraInvestimentos<span
+                            class="text-brand">API</span></span>
+                </div>
+            </div>
+
+            <!-- Colunas centrais -->
+            <div class="footer-columns">
+                <!-- Coluna 1: Redes Sociais -->
+                <div class="footer-col">
+                    <span class="footer-col-title">Minhas redes:</span>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/ryan-souza-silva/" target="_blank"
+                            class="social-icon icon-linkedin" title="LinkedIn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
+                        </a>
+                        <!-- Ícone do GitHub corrigido e vetorizado -->
+                        <a href="https://github.com/RyanSS27" target="_blank" class="social-icon icon-github"
+                            title="GitHub Pessoal">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/ryanss_arts/" target="_blank"
+                            class="social-icon icon-instagram" title="Instagram">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Coluna 2: Projetos -->
+                <div class="footer-col">
+                    <span class="footer-col-title">Mais projetos:</span>
+                    <div class="footer-links">
+                        <a href="https://github.com/RyanSS27/CarteiraInvestimentosAPI/" target="_blank"
+                            class="footer-link">Carteira de Investimentos</a>
+                        <!-- Adicione novos projetos aqui -->
+                    </div>
+                </div>
+
+                <!-- Coluna 3: Navegação na Página -->
+                <div class="footer-col">
+                    <span class="footer-col-title">Navegação:</span>
+                    <div class="footer-links">
+                        <!-- Ajuste os IDs abaixo conforme as seções da sua página -->
+                        <a href="#top" onclick="scrollToTop()" class="footer-link">Voltar ao topo</a>
+                        <a href="#fluxo-principal" class="footer-link">Fluxo de uso</a>
+                        <a href="#calculos" class="footer-link">Matemática da carteira</a>
+                        <a href="#arquitetura" class="footer-link">Arquitetura e engenharia</a>
+                        <a href="#codigo-fonte" class="footer-link">Explore o código do projeto</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright Centralizado no Rodapé -->
+            <div class="footer-bottom">
+                <p class="footer-copy">© 2026 Desenvolvido por Ryan Souza Silva.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

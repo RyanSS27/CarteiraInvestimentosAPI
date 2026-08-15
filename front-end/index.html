@@ -1,306 +1,299 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carteira Investimento API - Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            DEFAULT: '#10b981',
-                            hover: '#059669',
-                            glow: 'rgba(16, 185, 129, 0.25)',
-                            dark: '#090d16',
-                            card: '#111827',
-                            border: '#1f2937'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            background-color: #090d16;
-            color: #f3f4f6;
-        }
-
-        .glow-effect {
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
-        }
-    </style>
+    <title>CarteiraInvestimentos - Início</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="min-h-screen flex flex-col font-sans antialiased">
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container" onclick="window.location.href='index.html'">
+                <div class="logo-icon">$</div>
+                <span class="logo-text">CarteiraInvestimentos<span class="text-brand">API</span></span>
+            </div>
 
-    <!-- Header -->
-    <header class="border-b border-brand-border bg-brand-card/80 backdrop-blur sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="resetToHome()">
-                <div
-                    class="h-8 w-8 rounded-lg bg-brand flex items-center justify-center font-bold text-black text-xl shadow-lg shadow-brand/40">
-                    $
-                </div>
-                <span class="font-bold text-lg tracking-wide text-white">CarteiraInvestimentos<span
-                        class="text-brand">API</span></span>
-            </div>
-            <div class="flex items-center gap-3">
-                <button onclick="openCustomerModal()"
-                    class="bg-brand hover:bg-brand-hover text-black font-semibold px-4 py-2 rounded-lg text-sm transition-all shadow-md shadow-brand/20 flex items-center gap-2">
-                    <span>+</span> Novo Cliente
-                </button>
-            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Início</a>
+                <a href="sobre.html" class="nav-link">Sobre</a>
+                <a href="demonstracao.html" class="nav-link btn-demo-nav">Demonstração</a>
+            </nav>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+    <main class="main-content" style="padding: 0; max-width: 100%;">
 
-        <!-- Toast Notifications -->
-        <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2"></div>
+        <!-- Hero Section -->
+        <section class="hero-wrapper text-center">
+            <div style="max-width: 800px; margin: 0 auto;">
 
-        <!-- VIEW 1: Customer List -->
-        <section id="view-customers" class="space-y-6">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                    <h1 class="text-2xl font-bold text-white">Clientes</h1>
-                    <p class="text-gray-400 text-sm">Gerencie a lista de investidores e acesse suas carteiras.</p>
+                <div class="animate-up">
+                    <span class="badge"
+                        style="background: rgba(16, 185, 129, 0.1); color: var(--brand); border: 1px solid rgba(16, 185, 129, 0.3); margin-bottom: 20px; font-size: 12px; padding: 4px 12px; text-transform: uppercase; letter-spacing: 1px;">
+                        Versão 1.0 • Demonstração
+                    </span>
                 </div>
-                <button onclick="fetchCustomers()"
-                    class="text-xs bg-brand-border hover:bg-gray-700 text-gray-300 px-3 py-1.5 rounded-md border border-gray-700 transition">
-                    ↻ Atualizar Lista
-                </button>
-            </div>
 
-            <div id="customer-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <!-- Renderizado dinamicamente -->
-            </div>
-        </section>
+                <h1 class="title title-gradient animate-up" style="margin-bottom: 16px; margin-top: 16px;">
+                    CarteiraInvestimentos
+                </h1>
 
-        <!-- VIEW 2: Customer Portfolio Details -->
-        <section id="view-details" class="space-y-6 hidden">
-            <!-- Top Navigation & Profile Summary -->
-            <!-- Top Navigation & Profile Summary (Breakpoint customizado em 980px) -->
-            <!-- Cabeçalho de Navegação e Detalhes do Cliente -->
-            <div class="flex flex-col gap-4 pb-4 border-b border-brand-border/40">
+                <p class="subtitle animate-up delay-100"
+                    style="font-size: 22px; color: var(--brand); margin-bottom: 24px; font-weight: 500;">
+                    Uma forma simples de acompanhar sua carteira
+                </p>
 
-                <!-- 1. Botão Voltar (Sozinho no topo) -->
-                <div>
-                    <button onclick="showCustomersView()"
-                        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-card hover:bg-gray-800 border border-brand-border text-gray-400 hover:text-white text-xs font-semibold transition">
-                        ← Voltar
+                <p class="animate-up delay-200"
+                    style="font-size: 17px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; max-width: 650px; margin-left: auto; margin-right: auto;">
+                    Uma API REST desenvolvida em .NET para registrar operações de compra e venda de ativos da B3 e
+                    transformar esse histórico em uma visão consolidada da carteira.
+                </p>
+
+                <p class="animate-up delay-200"
+                    style="font-size: 17px; color: var(--text-muted); line-height: 1.6; margin-bottom: 48px; max-width: 650px; margin-left: auto; margin-right: auto;">
+                    O projeto registra as movimentações, calcula a posição de cada ativo e utiliza cotações de mercado
+                    para apresentar o valor atual e a rentabilidade da carteira.
+                </p>
+
+                <div class="flex items-center gap-4 animate-up delay-300"
+                    style="justify-content: center; margin-bottom: 24px;">
+                    <!-- Botão Explorar Demonstração -->
+                    <button onclick="window.location.href='demonstracao.html'" class="btn-primary"
+                        style="padding: 14px 28px; font-size: 16px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 3h6v6"></path>
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="10 14 21 3"></polyline>
+                        </svg>
+                        Explorar demonstração
+                    </button>
+
+                    <!-- Botão Ver Código -->
+                    <button onclick="window.open('https://github.com/RyanSS27/CarteiraInvestimentosAPI')"
+                        class="btn-secondary" style="padding: 14px 28px; font-size: 16px;">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                        </svg>
+                        Analisar Código-fonte
                     </button>
                 </div>
 
-                <!-- Cabeçalho de Navegação e Detalhes do Cliente -->
-                <div class="flex flex-col gap-6 pb-4 border-b border-brand-border/40">
-
-                    <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
-
-                        <!-- Bloco Esquerdo: Voltar + Dados do Cliente -->
-                        <div class="flex flex-row items-start gap-4">
-                            <div class="space-y-1">
-                                <div class="flex flex-wrap items-center gap-2.5">
-                                    <h1 id="det-customer-name" class="text-2xl font-bold text-white tracking-tight">---
-                                    </h1>
-                                    <span id="det-customer-status"
-                                        class="px-2.5 py-0.5 text-xs rounded-full font-medium">---</span>
-                                </div>
-                                <p id="det-customer-email" class="text-xs text-gray-400 font-mono">---</p>
-                            </div>
-                        </div>
-
-                        <!-- Bloco Direito: Todas as Ações Agrupadas -->
-                        <div class="flex flex-wrap items-center gap-2 pt-1 lg:pt-0">
-                            <!-- Exportações -->
-                            <button onclick="printSection('wallet')"
-                                class="bg-brand-card hover:bg-gray-800 text-gray-300 border border-brand-border px-3 py-2 rounded-lg text-xs font-medium transition hover:border-gray-500">
-                                📄 Imprimir Resumo
-                            </button>
-                            <button onclick="printSection('transactions')"
-                                class="bg-brand-card hover:bg-gray-800 text-gray-300 border border-brand-border px-3 py-2 rounded-lg text-xs font-medium transition hover:border-gray-500">
-                                📑 Imprimir Transações
-                            </button>
-
-                            <!-- Separador Visual -->
-                            <div class="hidden sm:block w-px h-6 bg-brand-border mx-1"></div>
-
-                            <!-- Ações do Cliente -->
-                            <button id="btn-toggle-status" onclick="toggleCustomerStatus()"
-                                class="px-3 py-2 rounded-lg border text-xs font-semibold transition">
-                                Alterar Status
-                            </button>
-                            <button onclick="openTransactionModal()"
-                                class="bg-brand hover:bg-brand-hover text-black font-bold px-4 py-2 rounded-lg text-xs transition-all shadow-md shadow-brand/20 flex items-center gap-1">
-                                <span>+</span> Nova Transação
-                            </button>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-
-            <!-- Cards de Métricas: Investimento Total em Primeiro e com Destaque Neon -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <!-- Card Principal: Investimento Total -->
-                <div
-                    class="bg-brand-card border-2 border-brand rounded-xl p-5 glow-effect bg-gradient-to-b from-brand/10 to-transparent">
-                    <div class="flex items-center justify-between">
-                        <p class="text-xs font-bold text-brand uppercase tracking-wider">Investimento Total</p>
-                        <span
-                            class="text-[10px] bg-brand/20 text-brand border border-brand/40 px-1.5 py-0.5 rounded font-mono">Consolidado</span>
-                    </div>
-                    <h3 id="det-wallet-total" class="text-3xl font-extrabold text-white mt-1">R$ 0,00</h3>
-                    <p class="text-[11px] text-gray-400 mt-1">Soma do patrimônio atualizado + estimado</p>
-                </div>
-
-                <!-- Patrimônio Atualizado -->
-                <div class="bg-brand-card border border-brand-border rounded-xl p-5">
-                    <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">Patrimônio Atualizado</p>
-                    <h3 id="det-wallet-uptodate" class="text-2xl font-bold text-brand mt-1">R$ 0,00</h3>
-                    <p class="text-[11px] text-gray-500 mt-1">Cotação em tempo real na B3</p>
-                </div>
-
-                <!-- Valor Estimado -->
-                <div class="bg-brand-card border border-brand-border rounded-xl p-5">
-                    <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">Valor Estimado</p>
-                    <h3 id="det-wallet-estimated" class="text-2xl font-bold text-gray-300 mt-1">R$ 0,00</h3>
-                    <p class="text-[11px] text-gray-500 mt-1">Baseado no preço médio pago</p>
-                </div>
-            </div>
-
-            <!-- Assets Table Section -->
-            <div class="bg-brand-card border border-brand-border rounded-xl overflow-hidden">
-                <div class="p-4 border-b border-brand-border flex justify-between items-center">
-                    <h2 class="font-semibold text-white">Posição de Ativos</h2>
-                    <span id="det-calc-date" class="text-xs text-gray-500">Última atualização: --</span>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm text-gray-300">
-                        <thead class="bg-gray-900/50 text-xs uppercase text-gray-400 border-b border-brand-border">
-                            <tr>
-                                <th class="p-4">Ticker</th>
-                                <th class="p-4">Qtd.</th>
-                                <th class="p-4">Preço Médio</th>
-                                <th class="p-4">Investido</th>
-                                <th class="p-4">Preço Atual</th>
-                                <th class="p-4">Valor Atual</th>
-                                <th class="p-4">Lucro / Prejuízo</th>
-                                <th class="p-4">Retorno (%)</th>
-                            </tr>
-                        </thead>
-                        <tbody id="assets-table-body" class="divide-y divide-gray-800">
-                            <!-- Renderizado dinamicamente -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Recent Transactions Section -->
-            <div class="bg-brand-card border border-brand-border rounded-xl p-4">
-                <h2 class="font-semibold text-white mb-4">Histórico Recente de Transações</h2>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm text-gray-300">
-                        <thead class="bg-gray-900/50 text-xs uppercase text-gray-400 border-b border-brand-border">
-                            <tr>
-                                <th class="p-3">Data</th>
-                                <th class="p-3">Tipo</th>
-                                <th class="p-3">Ticker</th>
-                                <th class="p-3">Quantidade</th>
-                                <th class="p-3">Preço Unitário</th>
-                                <th class="p-3">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody id="transactions-table-body" class="divide-y divide-gray-800">
-                            <!-- Renderizado dinamicamente -->
-                        </tbody>
-                    </table>
+                <div class="tech-badges animate-up delay-300">
+                    <span class="tech-badge badge-dotnet">.NET 10</span>
+                    <span class="tech-badge badge-csharp">C# 13</span>
+                    <span class="tech-badge badge-mongo">MongoDB</span>
+                    <span class="tech-badge badge-api">API REST</span>
+                    <span class="tech-badge badge-arch">Arquitetura Hexagonal</span>
                 </div>
             </div>
         </section>
+
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 24px;">
+            <!-- Features Section -->
+            <section id="funcionalidades" style="padding: 80px 0;">
+                <h2 class="title text-center mb-4 animate-up" style="font-size: 32px;">Funcionalidades da aplicação</h2>
+                <div class="grid animate-up delay-100"
+                    style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px; margin-top: 40px;">
+
+                    <div class="card card-hover glow-effect"
+                        style="background: rgba(17, 24, 39, 0.6); backdrop-filter: blur(10px);">
+                        <div
+                            style="width: 48px; height: 48px; border-radius: 12px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 20px;">
+                            📝</div>
+                        <h3 class="title" style="font-size: 18px; color: var(--text-main); margin-bottom: 8px;">Registre
+                            suas operações</h3>
+                        <p class="subtitle" style="line-height: 1.6;">Cadastre clientes e registre compras e vendas de
+                            ativos.</p>
+                    </div>
+
+                    <div class="card card-hover glow-effect"
+                        style="background: rgba(17, 24, 39, 0.6); backdrop-filter: blur(10px);">
+                        <div
+                            style="width: 48px; height: 48px; border-radius: 12px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 20px;">
+                            🗂️</div>
+                        <h3 class="title" style="font-size: 18px; color: var(--text-main); margin-bottom: 8px;">Organize
+                            sua carteira</h3>
+                        <p class="subtitle" style="line-height: 1.6;">As operações são consolidadas automaticamente para
+                            identificar a quantidade atual e o custo médio de cada ativo.</p>
+                    </div>
+
+                    <div class="card card-hover glow-effect"
+                        style="background: rgba(17, 24, 39, 0.6); backdrop-filter: blur(10px);">
+                        <div
+                            style="width: 48px; height: 48px; border-radius: 12px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 20px;">
+                            📈</div>
+                        <h3 class="title" style="font-size: 18px; color: var(--text-main); margin-bottom: 8px;">Consulte
+                            o valor atual</h3>
+                        <p class="subtitle" style="line-height: 1.6;">A aplicação consulta a Brapi para obter as
+                            cotações mais recentes disponíveis.</p>
+                    </div>
+
+                    <div class="card card-hover glow-effect"
+                        style="background: rgba(17, 24, 39, 0.6); backdrop-filter: blur(10px);">
+                        <div
+                            style="width: 48px; height: 48px; border-radius: 12px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 20px;">
+                            📊</div>
+                        <h3 class="title" style="font-size: 18px; color: var(--text-main); margin-bottom: 8px;">
+                            Acompanhe seus resultados</h3>
+                        <p class="subtitle" style="line-height: 1.6;">Veja quanto foi investido, quanto a carteira vale
+                            atualmente e qual foi o lucro ou prejuízo de cada posição.</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Steps Section -->
+            <section id="fluxo-de-uso" class="animate-up"
+                style="padding: 80px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+                <h2 class="title text-center mb-4" style="font-size: 32px;">Registre suas transações e veja o resultado
+                </h2>
+
+                <div id="descricao-de-uso" class="timeline"
+                    style="margin-top: 50px; display: flex; flex-direction: column; gap: 32px; position: relative;">
+                    <div class="timeline-step card card-hover">
+                        <h3 style="color: white; margin-bottom: 8px; font-size: 18px;">1. Registre uma transação</h3>
+                        <p class="subtitle" style="font-size: 15px;">Informe o ativo, quantidade, preço e tipo da
+                            transação (compra ou venda).</p>
+                    </div>
+                    <div class="timeline-step card card-hover">
+                        <h3 style="color: white; margin-bottom: 8px; font-size: 18px;">2. A aplicação processa o
+                            histórico</h3>
+                        <p class="subtitle" style="font-size: 15px;">As compras e vendas são utilizadas para determinar
+                            a posição atual da carteira.</p>
+                    </div>
+                    <div class="timeline-step card card-hover">
+                        <h3 style="color: white; margin-bottom: 8px; font-size: 18px;">3. A carteira é consolidada</h3>
+                        <p class="subtitle" style="font-size: 15px;">A aplicação calcula quantidade, preço médio e total
+                            investido.</p>
+                    </div>
+                    <div class="timeline-step card card-hover">
+                        <h3 style="color: white; margin-bottom: 8px; font-size: 18px;">4. A cotação é consultada</h3>
+                        <p class="subtitle" style="font-size: 15px;">O preço atual do ativo é obtido através da Brapi.
+                        </p>
+                    </div>
+                    <div class="timeline-step card card-hover">
+                        <h3 style="color: white; margin-bottom: 8px; font-size: 18px;">5. O resultado é apresentado</h3>
+                        <p class="subtitle" style="font-size: 15px;">A carteira passa a mostrar valor de mercado,
+                            lucro/prejuízo e rentabilidade.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fallback Section -->
+            <section class="animate-up" style="padding: 80px 0;">
+                <div class="alert-box hover-scale"
+                    style="flex-direction: column; padding: 40px; font-size: 14px; margin: 0; background-color: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.3); border-radius: 16px; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+                        <span style="font-size: 32px; filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.4));">🛡️</span>
+                        <h2 class="title" style="margin: 0; font-size: 24px; color: white;">Pensado para continuar
+                            funcionando</h2>
+                    </div>
+                    <p style="margin-bottom: 16px; line-height: 1.7; color: var(--text-muted); font-size: 16px;">
+                        A cotação de mercado depende de um serviço externo. Por isso, a aplicação possui um
+                        comportamento de fallback para situações em que a cotação não está disponível.
+                    </p>
+                    <p style="line-height: 1.7; color: var(--text-muted); font-size: 16px;">
+                        Quando isso acontece, a carteira continua sendo processada e o ativo afetado utiliza seu preço
+                        médio como referência. Assim, uma falha isolada não impede a visualização do restante da
+                        carteira.
+                    </p>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section id="foco-projeto" class="text-center animate-up"
+                style="padding: 60px 0 100px; border-top: 1px solid var(--border-color);">
+                <h2 class="title mb-4" style="font-size: 32px;">Um projeto focado em desenvolvimento de APIs </h2>
+                <p
+                    style="font-size: 17px; color: var(--text-muted); line-height: 1.7; margin-bottom: 40px; max-width: 750px; margin-left: auto; margin-right: auto;">
+                    Mais do que uma interface de investimentos, este projeto foi desenvolvido para demonstrar na prática
+                    a construção de uma API REST, persistência com MongoDB, integração com serviços externos e
+                    tratamento de diferentes cenários da aplicação.
+                </p>
+                <button onclick="window.location.href='sobre.html'" class="btn-primary"
+                    style="margin: 0 auto; padding: 16px 32px; font-size: 18px;">
+                    Conhecer o funcionamento
+                </button>
+            </section>
+        </div>
     </main>
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- Logo no topo à esquerda -->
+            <div class="footer-top">
+                <div class="logo-container" style="cursor: default; opacity: 0.8;">
+                    <div class="logo-icon" style="width: 24px; height: 24px; font-size: 14px; box-shadow: none;">$</div>
+                    <span class="logo-text" style="font-size: 16px;">CarteiraInvestimentos<span
+                            class="text-brand">API</span></span>
+                </div>
+            </div>
 
-    <!-- MODAL 1: Create Customer -->
-    <div id="modal-customer"
-        class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center hidden">
-        <div class="bg-brand-card border border-brand-border rounded-xl p-6 w-full max-w-md space-y-4">
-            <h2 id="modal-customer-title" class="text-xl font-bold text-white">Registrar Cliente</h2>
-            <form id="form-customer" onsubmit="handleSaveCustomer(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs text-gray-400 mb-1">Nome Completo</label>
-                    <input type="text" id="cust-name" required
-                        class="w-full bg-gray-900 border border-brand-border rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-brand">
-                </div>
-                <div>
-                    <label class="block text-xs text-gray-400 mb-1">E-mail</label>
-                    <input type="email" id="cust-email" required
-                        class="w-full bg-gray-900 border border-brand-border rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-brand">
-                </div>
-                <div class="flex justify-end gap-2 pt-2">
-                    <button type="button" onclick="closeCustomerModal()"
-                        class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg text-sm">Cancelar</button>
-                    <button type="submit"
-                        class="px-4 py-2 bg-brand hover:bg-brand-hover text-black font-semibold rounded-lg text-sm">Salvar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL 2: Record Transaction -->
-    <div id="modal-transaction"
-        class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center hidden">
-        <div class="bg-brand-card border border-brand-border rounded-xl p-6 w-full max-w-md space-y-4">
-            <h2 class="text-xl font-bold text-white">Registrar Transação</h2>
-            <form id="form-transaction" onsubmit="handleRecordTransaction(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs text-gray-400 mb-1">Ticker (ex: PETR4)</label>
-                    <input type="text" id="tx-ticker" pattern="^[a-zA-Z]{4}\d{1,2}$" required placeholder="PETR4"
-                        class="w-full bg-gray-900 border border-brand-border rounded-lg p-2.5 text-sm text-white uppercase focus:outline-none focus:border-brand">
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs text-gray-400 mb-1">Quantidade</label>
-                        <input type="number" id="tx-quantity" min="1" required
-                            class="w-full bg-gray-900 border border-brand-border rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-brand">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-gray-400 mb-1">Preço Unitário (R$)</label>
-                        <input type="number" id="tx-price" step="0.01" min="0.01" required
-                            class="w-full bg-gray-900 border border-brand-border rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-brand">
+            <!-- Colunas centrais -->
+            <div class="footer-columns">
+                <!-- Coluna 1: Redes Sociais -->
+                <div class="footer-col">
+                    <span class="footer-col-title">Minhas redes:</span>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/ryan-souza-silva/" target="_blank"
+                            class="social-icon icon-linkedin" title="LinkedIn">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
+                        </a>
+                        <!-- Ícone do GitHub corrigido e vetorizado -->
+                        <a href="https://github.com/RyanSS27" target="_blank" class="social-icon icon-github"
+                            title="GitHub Pessoal">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/ryanss_arts/" target="_blank"
+                            class="social-icon icon-instagram" title="Instagram">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </a>
                     </div>
                 </div>
-                <div>
-                    <label class="block text-xs text-gray-400 mb-1">Tipo de Operação</label>
-                    <select id="tx-type" required
-                        class="w-full bg-gray-900 border border-brand-border rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-brand">
-                        <option value="BUY">Compra (BUY)</option>
-                        <option value="SELL">Venda (SELL)</option>
-                    </select>
+
+                <!-- Coluna 2: Projetos -->
+                <div class="footer-col">
+                    <span class="footer-col-title">Mais projetos:</span>
+                    <div class="footer-links">
+                        <a href="https://github.com/RyanSS27/CarteiraInvestimentosAPI/" target="_blank"
+                            class="footer-link">Carteira de Investimentos</a>
+                        <!-- Adicione novos projetos aqui -->
+                    </div>
                 </div>
-                <div class="flex justify-end gap-2 pt-2">
-                    <button type="button" onclick="closeTransactionModal()"
-                        class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg text-sm">Cancelar</button>
-                    <button type="submit"
-                        class="px-4 py-2 bg-brand hover:bg-brand-hover text-black font-semibold rounded-lg text-sm">Registrar</button>
+
+                <!-- Coluna 3: Navegação na Página -->
+                <div class="footer-col">
+                    <span class="footer-col-title">Navegação:</span>
+                    <div class="footer-links">
+                        <!-- Ajuste os IDs abaixo conforme as seções da sua página -->
+                        <a href="#top" onclick="scrollToTop()" class="footer-link">Voltar ao topo</a>
+                        <a href="#funcionalidades" class="footer-link">Funcionalidades da aplicação</a>
+                        <a href="#fluxo-de-uso" class="footer-link">Do lançamento ao resultado</a>
+                        <a href="#foco-projeto" class="footer-link">Foco em desenvolvimento</a>
+                    </div>
                 </div>
-            </form>
+            </div>
+
+            <!-- Copyright Centralizado no Rodapé -->
+            <div class="footer-bottom">
+                <p class="footer-copy">© 2026 Desenvolvido por Ryan Souza Silva.</p>
+            </div>
         </div>
-    </div>
-
-    <script src="script.js">
-
-    </script>
+    </footer>
 </body>
 
 </html>
