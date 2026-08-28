@@ -1,6 +1,6 @@
 using CarteiraInvestimentosAPI.Domain.Entities;
-using CarteiraInvestimentosAPI.Entities;
 using MongoDB.Driver;
+using CarteiraInvestimentosAPI.Domain.Exceptions;
 
 namespace CarteiraInvestimentosAPI.Adapters.Infrastructure.Repositories;
 
@@ -42,9 +42,10 @@ public class CustomerRepository : ICustomerRepository
         await _customersCollection.ReplaceOneAsync(c => c.Id == customer.Id, customer);
     }
 
-    public async Task<bool> DeleteCustomerAsync(Guid customerId)
+    public async Task DeleteCustomerAsync(Guid customerId)
     {
         var result = await _customersCollection.DeleteOneAsync(c => c.Id == customerId);
-        return result.DeletedCount > 0;
+        if (result.DeletedCount == 0)
+            throw new NotFoundException($"Cliente de id '{customerId}' não encontrado para exclusão.");
     }
 }
