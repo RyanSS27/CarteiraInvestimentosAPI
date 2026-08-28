@@ -1,11 +1,12 @@
 const API_BASE = 'http://localhost:5004/api'; 
 let activeCustomerData = null;
+let currentTransactionPage = 1; 
+const transactionLimit = 10;
 
 const formatCurrency = (value) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value || 0);
 const formatDate = (isoString) => isoString ? new Date(isoString).toLocaleString('pt-BR') : '--';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Detecta em qual página estamos
     if (document.getElementById('customer-grid')) {
         fetchCustomers();
     } else if (document.getElementById('det-customer-name')) {
@@ -121,15 +122,16 @@ async function handleSaveCustomer(e) {
 
 async function loadCustomerDetail(id) {
     try {
+        currentTransactionPage = 1; 
+
         const [custRes, summaryRes, txRes] = await Promise.allSettled([
             fetch(`${API_BASE}/customer/${id}`),
             fetch(`${API_BASE}/wallet/${id}/summary`),
-            fetch(`${API_BASE}/wallet/${id}/transactions?limit=10`)
+            fetch(`${API_BASE}/wallet/${id}/transactions?page=${currentTransactionPage}&limit=${transactionLimit}`) 
         ]);
 
         if (custRes.status === 'fulfilled' && custRes.value.ok) {
             activeCustomerData = await custRes.value.json();
-            // Fallback caso a API de detalhes não traga isActive
             if (activeCustomerData.isActive === undefined) activeCustomerData.isActive = true; 
             renderCustomerHeader(activeCustomerData);
         }
@@ -142,6 +144,7 @@ async function loadCustomerDetail(id) {
         if (txRes.status === 'fulfilled' && txRes.value.ok) {
             const transactions = await txRes.value.json();
             renderTransactionsTable(transactions);
+            updatePaginationControls(transactions.length); 
         }
     } catch (err) {
         showToast(err.message, true);
@@ -153,18 +156,13 @@ function renderCustomerHeader(cust) {
     document.getElementById('det-customer-email').innerText = cust.email || 'E-mail não cadastrado';
     
     const statusBadge = document.getElementById('det-customer-status');
-    const toggleBtn = document.getElementById('btn-toggle-status');
 
     if (cust.isActive) {
         statusBadge.innerText = 'Ativo';
         statusBadge.className = 'badge active';
-        toggleBtn.innerText = 'Inativar';
-        toggleBtn.className = 'btn-action-danger'; // Aplica a classe vermelha
     } else {
         statusBadge.innerText = 'Inativo';
         statusBadge.className = 'badge inactive';
-        toggleBtn.innerText = 'Ativar';
-        toggleBtn.className = 'btn-action-brand'; // Aplica a classe verde
     }
 }
 
@@ -246,23 +244,6 @@ function renderTransactionsTable(transactions) {
         `;
         tbody.appendChild(tr);
     });
-}
-
-async function toggleCustomerStatus() {
-    if (!activeCustomerData) return;
-    const isCurrentlyActive = activeCustomerData.isActive;
-    const action = isCurrentlyActive ? 'inactivate' : 'activate';
-
-    try {
-        const res = await fetch(`${API_BASE}/customer/${action}/${activeCustomerData.id}`, { method: 'PUT' });
-        if (!res.ok) throw new Error("Erro ao alterar o status do cliente.");
-        
-        activeCustomerData.isActive = !isCurrentlyActive;
-        renderCustomerHeader(activeCustomerData);
-        showToast(`Cliente ${!isCurrentlyActive ? 'ativado' : 'inativado'} com sucesso!`);
-    } catch (err) {
-        showToast(err.message, true);
-    }
 }
 
 async function handleRecordTransaction(e) {
@@ -379,4 +360,106 @@ function printSection(type) {
     printWindow.document.close();
     printWindow.focus();
     setTimeout(() => { printWindow.print(); printWindow.close(); }, 250);
+}
+
+// --- LÓGICA DE PAGINAÇÃO DE TRANSAÇÕES ---
+
+async function changeTransactionPage(direction) {
+    if (!activeCustomerData) return;
+    
+    const newPage = currentTransactionPage + direction;
+    if (newPage < 1) return; 
+    
+    try {
+        const res = await fetch(`${API_BASE}/wallet/${activeCustomerData.id}/transactions?page=${newPage}&limit=${transactionLimit}`);
+        if (!res.ok) throw new Error("Erro ao buscar transações.");
+        
+        const transactions = await res.json();
+        
+        if (direction === 1 && transactions.length === 0) {
+            document.getElementById('btn-next-page').disabled = true;
+            return;
+        }
+        
+        currentTransactionPage = newPage;
+        renderTransactionsTable(transactions);
+        updatePaginationControls(transactions.length);
+    } catch (err) {
+        showToast(err.message, true);
+    }
+}
+
+function updatePaginationControls(currentTxCount) {
+    const btnPrev = document.getElementById('btn-prev-page');
+    const btnNext = document.getElementById('btn-next-page');
+    const indicator = document.getElementById('page-indicator');
+    
+    if (btnPrev) btnPrev.disabled = currentTransactionPage === 1;
+    
+    if (btnNext) btnNext.disabled = currentTxCount < transactionLimit; 
+    
+    if (indicator) indicator.innerText = `Página ${currentTransactionPage}`;
+}
+
+function openEditCustomerModal() {
+    if (!activeCustomerData) return;
+    
+    document.getElementById('edit-cust-name').value = activeCustomerData.name;
+    document.getElementById('edit-cust-email').value = activeCustomerData.email || '';
+    
+    // Converte o booleano para string para marcar a option correta no select
+    document.getElementById('edit-cust-status').value = activeCustomerData.isActive ? "true" : "false";
+    
+    document.getElementById('modal-edit-customer').classList.add('show');
+}
+
+async function handleEditCustomer(e) {
+    e.preventDefault();
+    if (!activeCustomerData) return;
+
+    const newName = document.getElementById('edit-cust-name').value;
+    const newEmail = document.getElementById('edit-cust-email').value;
+    const newStatus = document.getElementById('edit-cust-status').value === "true"; // Converte de volta para booleano
+
+    const payload = {
+        name: newName,
+        email: newEmail
+    };
+
+    try {
+        // 1. Atualiza os dados cadastrais básicos
+        const resInfo = await fetch(`${API_BASE}/customer/${activeCustomerData.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        if (!resInfo.ok) {
+            const errData = await resInfo.json().catch(() => null);
+            throw new Error(errData?.mensagem || "Erro ao atualizar os dados do cliente.");
+        }
+
+        const updatedCustomer = await resInfo.json();
+        activeCustomerData.name = updatedCustomer.name;
+        activeCustomerData.email = updatedCustomer.email;
+
+        // 2. Orquestração: Se o status foi alterado no modal, dispara a chamada para a rota correspondente
+        if (newStatus !== activeCustomerData.isActive) {
+            const action = newStatus ? 'activate' : 'inactivate';
+            const resStatus = await fetch(`${API_BASE}/customer/${action}/${activeCustomerData.id}`, { method: 'PUT' });
+            
+            if (!resStatus.ok) {
+                throw new Error("Dados salvos, mas houve um erro ao alterar o status do cliente.");
+            }
+            activeCustomerData.isActive = newStatus;
+        }
+
+        // Atualiza a UI com os novos dados e status
+        renderCustomerHeader(activeCustomerData);
+        
+        showToast("Cliente atualizado com sucesso!");
+        closeModal('modal-edit-customer');
+    } catch (err) {
+        showToast(err.message, true);
+    }
 }
