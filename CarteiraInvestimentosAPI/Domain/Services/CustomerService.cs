@@ -3,6 +3,7 @@ using CarteiraInvestimentosAPI.Domain.Entities;
 using CarteiraInvestimentosAPI.Domain.Services.Ports;
 using CarteiraInvestimentosAPI.Dtos;
 using CarteiraInvestimentosAPI.Dtos.CustomersDtos;
+using CarteiraInvestimentosAPI.Domain.Exceptions; // Assumindo o namespace da sua exception
 
 namespace CarteiraInvestimentosAPI.Domain.Services;
 
@@ -16,32 +17,33 @@ public class CustomerService(ICustomerRepository customerRepository) : ICustomer
         return new CustomerOutDto(customer);
     }
 
-    public async Task<CustomerOutDto?> GetCustomer(Guid customerId)
+    public async Task<CustomerOutDto> GetCustomer(Guid customerId)
     {
         var customer = await customerRepository.GetCustomerAsync(customerId);
         if (customer is null)
-            return null;
+            throw new NotFoundException($"Cliente de id '{customerId}' não encontrado.");
         
         return new CustomerOutDto(customer);
     }
 
-    public async Task<CustomerOutDto?> UpdateCustomerInformation(Guid customerId, CustomerInputDto newCustomerData)
+    public async Task<CustomerOutDto> UpdateCustomerInformation(Guid customerId, CustomerInputDto newCustomerData)
     {
         var customer = await customerRepository.GetCustomerAsync(customerId);
         if (customer is null)
-            return null;
+            throw new NotFoundException($"Cliente de id '{customerId}' não encontrado.");
 
         customer.Name = newCustomerData.Name;
         customer.Email = newCustomerData.Email;
         await customerRepository.UpdateCustomerAsync(customer);
+        
         return new CustomerOutDto(customer);
     }
 
-    public async Task<CustomerOutResumeDto?> InactivateCustomer(Guid customerId)
+    public async Task<CustomerOutResumeDto> InactivateCustomer(Guid customerId)
     {
         var customer = await customerRepository.GetCustomerAsync(customerId);
         if (customer is null)
-            return null;
+            throw new NotFoundException($"Cliente de id '{customerId}' não encontrado.");
         
         customer.InactivateAccount();
         await customerRepository.UpdateCustomerAsync(customer);
@@ -49,11 +51,11 @@ public class CustomerService(ICustomerRepository customerRepository) : ICustomer
         return new CustomerOutResumeDto(customer);
     }
 
-    public async Task<CustomerOutDto?> ActivateCustomer(Guid customerId)
+    public async Task<CustomerOutDto> ActivateCustomer(Guid customerId)
     {
         var customer = await customerRepository.GetCustomerAsync(customerId);
         if (customer is null)
-            return null;
+            throw new NotFoundException($"Cliente de id '{customerId}' não encontrado.");
 
         customer.ActivateAccount();
         await customerRepository.UpdateCustomerAsync(customer);
@@ -71,8 +73,8 @@ public class CustomerService(ICustomerRepository customerRepository) : ICustomer
             .ToList();
     }
 
-    public async Task<bool> DeleteCustomerAsync(Guid customerId)
+    public async Task DeleteCustomerAsync(Guid customerId)
     {
-        return await customerRepository.DeleteCustomerAsync(customerId);
+        await customerRepository.DeleteCustomerAsync(customerId);
     }
 }

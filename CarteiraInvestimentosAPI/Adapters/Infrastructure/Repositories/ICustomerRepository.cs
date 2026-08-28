@@ -1,5 +1,4 @@
 using CarteiraInvestimentosAPI.Domain.Entities;
-using CarteiraInvestimentosAPI.Entities;
 
 namespace CarteiraInvestimentosAPI.Adapters.Infrastructure.Repositories;
 
@@ -11,5 +10,5 @@ public interface ICustomerRepository
 
     // Funções utilizadas apenas para testes:
     public Task<List<CustomerSummary>> ListCustomerSummariesAsync();
-    public Task<bool> DeleteCustomerAsync(Guid customerId);
+    public Task DeleteCustomerAsync(Guid customerId);
 }

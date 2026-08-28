@@ -3,7 +3,7 @@ using CarteiraInvestimentosAPI.Dtos;
 using CarteiraInvestimentosAPI.Dtos.CustomersDtos;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CarteiraInvestimentosAPI.Controllers;
+namespace CarteiraInvestimentosAPI.Adapters.Controllers;
 
 [Route("api/customer")]
 [ApiController]
@@ -22,9 +22,6 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
     public async Task<IActionResult> GetCustomer(Guid id)
     {
         var customerOutDto = await _customerService.GetCustomer(id);
-        if (customerOutDto is null)
-            return NotFound(new { mensagem = $"Cliente de id '{id}' não encontrado." });
-
         return Ok(customerOutDto);
     }
 
@@ -32,9 +29,6 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
     public async Task<IActionResult> UpdateCustomer(Guid id, CustomerInputDto newCustomerData)
     {
         var customer = await _customerService.UpdateCustomerInformation(id, newCustomerData);
-        if (customer is null)
-            return NotFound(new { mensagem = $"Cliente de id '{id}' não encontrado." });
-
         return Ok(customer);
     }
 
@@ -42,9 +36,6 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
     public async Task<IActionResult> InactivateCustomer(Guid id)
     {
         var inactiveCustomer = await _customerService.InactivateCustomer(id);
-        if (inactiveCustomer is null)
-            return NotFound(new { mensagem = $"Cliente de id '{id}' não encontrado." });
-
         return Ok(inactiveCustomer);
     }
 
@@ -52,13 +43,8 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
     public async Task<IActionResult> ActivateCustomer(Guid id)
     {
         var activeCustomer = await _customerService.ActivateCustomer(id);
-        if (activeCustomer is null)
-            return NotFound(new { mensagem = $"Cliente de id '{id}' não encontrado." });
-
         return Ok(activeCustomer);
     }
-    
-    // Chamadas utilizadas para testes e debug:
 
     [HttpGet]
     public async Task<IActionResult> ListCustomers()
@@ -66,14 +52,13 @@ public class CustomerController(ICustomerService customerService) : ControllerBa
         List<CustomerOutResumeDto> customers = await _customerService.ListCustomersAsync();
         return Ok(customers);
     }
+    
+    // Chamada utilizada para testes e debug:
 
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteCustomer(Guid id)
     {
-        var result = await _customerService.DeleteCustomerAsync(id);
-        if (result)
-            return NoContent();
-
-        return NotFound(new { mensagem = $"Cliente de id '{id}' não encontrado." });
+        await _customerService.DeleteCustomerAsync(id);
+        return NoContent();
     }
 }

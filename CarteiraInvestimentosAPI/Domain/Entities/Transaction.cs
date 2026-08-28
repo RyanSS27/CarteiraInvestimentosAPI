@@ -12,7 +12,7 @@ public partial class Transaction
 
     public TransactionType TransactionType { get; private set; }
     public int Quantity { get; private set; }
-    public decimal UnitPrice { get; private set; } // quanto a ação valia no momento
+    public decimal UnitPrice { get; private set; } 
     public string Ticker { get; private set; }
     
     public Transaction(
@@ -26,7 +26,10 @@ public partial class Transaction
             throw new ArgumentException("A quantidade de cotas deve ser maior que zero.");
 
         if (unitPrice <= 0)
-            throw new ArgumentException("O preço unitário de compra deve ser maior que zero.");
+            throw new ArgumentException("O preço unitário deve ser maior que zero.");
+
+        if (quantity * unitPrice > 100_000_000m)
+            throw new ArgumentException("O volume financeiro da transação excede o limite de segurança de R$ 100.000.000,00.");
         
         if (string.IsNullOrWhiteSpace(ticker) || !MyRegex().IsMatch(ticker))
             throw new ArgumentException("O Ticker informado é inválido. Padrão esperado: 4 letras seguidas de 1 ou 2 números.");

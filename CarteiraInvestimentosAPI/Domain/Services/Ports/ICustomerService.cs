@@ -14,5 +14,5 @@ public interface ICustomerService
 
     // Funções utilizadas apenas para testes:
     public Task<List<CustomerOutResumeDto>> ListCustomersAsync();
-    public Task<bool> DeleteCustomerAsync(Guid customerId);
+    public Task DeleteCustomerAsync(Guid customerId);
 }
