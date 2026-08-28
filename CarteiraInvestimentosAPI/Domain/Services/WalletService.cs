@@ -85,7 +85,7 @@ public class WalletService(
         );
     }
 
-    public async Task<List<TransactionOutDto>> ListCustomerTransactionAsync(Guid customerId, int limit)
+    public async Task<List<TransactionOutDto>> ListCustomerTransactionAsync(Guid customerId, int page, int limit)
     {
         var customer = await customerRepository.GetCustomerAsync(customerId);
         if (customer is null)
@@ -93,8 +93,13 @@ public class WalletService(
         
         if (limit > LimitPerRequest || limit <= 0)
             limit = LimitPerRequest;
+            
+        if (page <= 0)
+            page = 1;
+            
+        int skip = (page - 1) * limit;
         
-        var transaction = await transactionRepository.ListTransactionsAsync(customerId, limit);
+        var transaction = await transactionRepository.ListTransactionsAsync(customerId, skip, limit);
         return transaction
             .Select(MapToTransactionOutDto) // versão implicita que passa cada transação para a função
             .ToList();

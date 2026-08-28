@@ -1,8 +1,8 @@
+using CarteiraInvestimentosAPI.Database;
 using CarteiraInvestimentosAPI.Domain.Entities;
-using CarteiraInvestimentosAPI.Entities;
 using MongoDB.Driver;
 
-namespace CarteiraInvestimentosAPI.Database;
+namespace CarteiraInvestimentosAPI.Adapters.Infrastructure.Repositories;
 
 public class TransactionRepository : ITransactionRepository
 {
@@ -22,12 +22,12 @@ public class TransactionRepository : ITransactionRepository
         await _transactionCollection.InsertOneAsync(transaction);
     }
 
-    // a ideia é, futuramente listar as transações de um cliente para exibir no front, por exemplo
-    public async Task<List<Transaction>> ListTransactionsAsync(Guid customerId, int limit)
+    public async Task<List<Transaction>> ListTransactionsAsync(Guid customerId, int skip, int limit)
     {
         return await _transactionCollection
             .Find(t => t.CustomerId == customerId)
             .SortByDescending(t => t.TransactionDate)
+            .Skip(skip)
             .Limit(limit)
             .ToListAsync();
     }

@@ -16,12 +16,15 @@ public class WalletController(IWalletService walletService) : ControllerBase
         var transaction = await _walletService.RecordTransactionAsync(customerId, transactionInput);
         return Ok(transaction);
     }
-    
+
     // Listar transações
     [HttpGet("{customerId:guid}/transactions")]  
-    public async Task<IActionResult> ListCustomerTransactions(Guid customerId, int limit)
+    public async Task<IActionResult> ListCustomerTransactions(Guid customerId, [FromQuery] int? page, [FromQuery] int? limit)
     {
-        return Ok(await _walletService.ListCustomerTransactionAsync(customerId, limit));
+        int currentPage = page ?? 1;
+        int currentLimit = limit ?? 25;
+        
+        return Ok(await _walletService.ListCustomerTransactionAsync(customerId, currentPage, currentLimit));
     }
 
     // Consultar a wallet 

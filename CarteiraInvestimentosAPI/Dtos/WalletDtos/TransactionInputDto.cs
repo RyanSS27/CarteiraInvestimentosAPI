@@ -9,13 +9,25 @@ public record TransactionInputDto(
     string Ticker,
     
     [Required(ErrorMessage = "A quantidade é obrigatória.")]
-    [Range(1, int.MaxValue, ErrorMessage = "Quantidade deve ser maior que zero.")]
+    [Range(1, 100_000_000, ErrorMessage = "A quantidade deve ser entre 1 e 100.000.000.")]
     int Quantity,
     
     [Required(ErrorMessage = "O preço unitário é obrigatório.")]
-    [Range(0.01, double.MaxValue, ErrorMessage = "O preço unitário deve ser maior que zero.")]
+    [Range(0.01, 100_000_000, ErrorMessage = "O preço unitário deve ser entre 0,01 e 100.000.000,00.")]
     decimal UnitPrice,
     
     [Required(ErrorMessage = "O tipo da transação é obrigatório. Valores válidos: 'BUY' / 'SELL'.")]
     TransactionType TransactionType
-    );
+) : IValidatableObject
+{
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    {
+        if (Quantity * UnitPrice > 100_000_000m)
+        {
+            yield return new ValidationResult(
+                "O volume financeiro da transação excede o limite de segurança de R$ 100.000.000,00.",
+                [nameof(Quantity), nameof(UnitPrice)]
+            );
+        }
+    }
+}

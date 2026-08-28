@@ -9,7 +9,7 @@ public partial class Asset
 
     public int Quantity { get; private set; } 
 
-    public decimal  AveragePrice { get; private set; }  
+    public decimal AveragePrice { get; private set; }  
     /*
         Valor atribuido direto na 1° compra e nas próximas transações carrega a média do valor 
         pago por aquela ação
@@ -30,16 +30,22 @@ public partial class Asset
         if (averagePrice <= 0)
             throw new ArgumentException("O preço médio deve ser maior que zero.");
 
+        if (quantity * averagePrice > 100_000_000m)
+            throw new ArgumentException("O volume financeiro inicial excede o limite de segurança de R$ 100.000.000,00.");
         
         Ticker = ticker.Trim().ToUpper();
         Quantity = quantity;
         AveragePrice = averagePrice;
         TotalAcquisitionCost = quantity * averagePrice;
     }
+    
     public void RegisterBuy(int quantity, decimal unitPrice)
     {
         if (unitPrice <= 0 || quantity <= 0)
             throw new DomainException("Tanto Quantidade quanto Preço Unitário devem ser maiores que zero."); 
+
+        if (quantity * unitPrice > 100_000_000m)
+            throw new DomainException("O volume financeiro da compra excede o limite de segurança de R$ 100.000.000,00.");
 
         TotalAcquisitionCost += quantity * unitPrice;
         

@@ -4,7 +4,7 @@ namespace CarteiraInvestimentosAPI.Domain.Services.Ports;
 
 public interface IWalletService
 {
-    Task<List<TransactionOutDto>> ListCustomerTransactionAsync(Guid customerId, int limit);
+    Task<List<TransactionOutDto>> ListCustomerTransactionAsync(Guid customerId, int page, int limit);
     Task<TransactionOutDto> RecordTransactionAsync(Guid customerId, TransactionInputDto transactionInput);
 
     // listar assets 
