@@ -1,6 +1,5 @@
 # 📈 CarteiraInvestimentos - Web API
 
-
 <p align="center">
   <img src="https://img.shields.io/badge/.NET-10-512BD4?logo=dotnet&logoColor=white" alt=".NET 10">
   <img src="https://img.shields.io/badge/C%23-13-239120?logo=csharp&logoColor=white" alt="C# 13">
@@ -9,7 +8,7 @@
   <img src="https://img.shields.io/badge/Architecture-Hexagonal-orange" alt="Hexagonal Architecture">
 </p>
 
-API REST desenvolvida em .NET 10 para gerenciamento de carteiras de investimentos em ativos negociados na B3, afim de consolidar boas práticas de arquitetura e integração com servições externos.
+API REST desenvolvida em .NET 10 para gerenciamento de carteiras de investimentos em ativos negociados na B3, a fim de consolidar boas práticas de arquitetura e integração com serviços externos.
 
 A aplicação permite cadastrar clientes, registrar operações de compra e venda, consultar o histórico de transações e consolidar automaticamente a carteira utilizando cotações obtidas pela Brapi. O projeto utiliza MongoDB e segue a Arquitetura Hexagonal (Ports and Adapters), mantendo o domínio desacoplado da infraestrutura.
 
@@ -33,7 +32,8 @@ A aplicação permite cadastrar clientes, registrar operações de compra e vend
 - **Flurl**
 - **Docker**
 - **Scalar**
-- **Postman**
+- **HTML / CSS / JavaScript**
+- **Tailwind CSS**
 
 ### Arquitetura e conceitos
 
@@ -49,28 +49,37 @@ A aplicação permite cadastrar clientes, registrar operações de compra e vend
 ---
 
 ## 🏗️ Estrutura do Projeto
-A estrutura abaixo organiza a aplicação separando as responsabilidades afim de baixo acoplamento, isolando o núcleo de negócios (domínio) das ferramentas de tecnologia (infraestrutura).
+
+A estrutura abaixo organiza a aplicação separando as responsabilidades, a fim de manter baixo acoplamento e isolar o núcleo de negócios (domínio) das ferramentas de tecnologia (infraestrutura).
+
 ```text
-📁 CarteiraInvestimentosAPI/
-├── 📁 Adapters/
-│   ├── 📁 Controllers/
-│   └── 📁 Infrastructure/
-│       ├── 📁 ExternalServices/
-│       ├── 📁 Repositories/
-│       └── 📄 GlobalExceptionHandler.cs
+.
+├── 📁 CarteiraInvestimentosAPI/
+│   ├── 📁 Adapters/
+│   │   ├── 📁 Controllers/
+│   │   └── 📁 Infrastructure/
+│   │       ├── 📁 ExternalServices/
+│   │       ├── 📁 Repositories/
+│   │       └── 📄 GlobalExceptionHandler.cs
+│   │
+│   ├── 📁 Domain/
+│   │   ├── 📁 Entities/
+│   │   ├── 📁 Exceptions/
+│   │   └── 📁 Services/
+│   │       └── 📁 Ports/
+│   │
+│   ├── 📁 Dtos/
+│   │   ├── 📁 CustomersDtos/
+│   │   └── 📁 WalletDtos/
+│   │
+│   └── 📄 Program.cs
 │
-├── 📁 Domain/
-│   ├── 📁 Entities/
-│   ├── 📁 Exceptions/
-│   └── 📁 Services/
-│       └── 📁 Ports/
-│
-├── 📁 Dtos/
-│   ├── 📁 CustomersDtos/
-│   └── 📁 WalletDtos/
-│
-└── 📄 Program.cs
+├── 📁 front-end/
+└── 📄 README.md
 ```
+
+---
+
 ## ⚙️ Configuração do Ambiente Local
 
 ### Pré-requisitos
@@ -133,7 +142,7 @@ dotnet run
 
 ## 🧪 Como utilizar a API
 
-A API possui documentação interativa através do **Scalar** e pode ser testada também utilizando o **Postman**.
+A API possui documentação interativa através do **Scalar**, que pode ser utilizada para visualizar e testar os endpoints.
 
 ### Principais endpoints
 
@@ -204,9 +213,9 @@ Retorna o histórico de operações do cliente, limitado pela quantidade informa
 /api/wallet/{customerId}/summary
 ```
 
-A consulta consolida as informações dos ativos e, quando disponível, utiliza a cotação atual obtida através da Brapi somadas no atributo `totalValueUpToDate`. 
+A consulta consolida as informações dos ativos e, quando disponível, utiliza a cotação atual obtida através da Brapi, somada no atributo `totalValueUpToDate`.
 
-Quando não há correspondência no mercado ao Ticker informado ou haja queda nos serviços externos, os dados referentes ao lucro dos ativos serão zerados pois o preço médio pago pelas ações passa a ser tomado como referência para os cálculos, sendo somados separadamente no atributo `totalValueEstimated`.
+Quando não há correspondência no mercado ao ticker informado ou ocorre uma falha nos serviços externos, o preço médio pago pelas ações é utilizado como referência. Nesses casos, os dados referentes ao lucro dos ativos são zerados e os valores são somados separadamente no atributo `totalValueEstimated`.
 
 Exemplo simplificado:
 
@@ -231,8 +240,8 @@ Exemplo simplificado:
     {
       "ticker": "PETR4",
       "currentQuantity": 11,
-      "averagePrice": 22,
-      "currentAmountInvested": 242,
+      "averagePrice": 22.00,
+      "currentAmountInvested": 242.00,
       "currentMarketPrice": 43.05,
       "totalCurrentValue": 473.55,
       "returnPercentage": 95.68,
@@ -242,10 +251,10 @@ Exemplo simplificado:
     {
       "ticker": "TEST1",
       "currentQuantity": 10,
-      "averagePrice": 20,
-      "currentAmountInvested": 200,
-      "currentMarketPrice": 20,
-      "totalCurrentValue": 200,
+      "averagePrice": 20.00,
+      "currentAmountInvested": 200.00,
+      "currentMarketPrice": 20.00,
+      "totalCurrentValue": 200.00,
       "returnPercentage": 0,
       "profitOrLoss": 0,
       "isPriceUpToDate": false
@@ -253,6 +262,38 @@ Exemplo simplificado:
   ]
 }
 ```
+
+---
+
+## 🖥️ Demonstração
+
+O projeto também possui uma interface web para demonstrar visualmente o funcionamento da API.
+
+O frontend apresenta a carteira consolidada, o histórico de transações e as principais informações retornadas pela aplicação.
+
+### Carteira e posição dos ativos
+
+<p align="center">
+  <img src="docs/carteira.png" width="95%" alt="Demonstração da carteira de investimentos">
+</p>
+
+### Histórico de transações
+
+<p align="center">
+  <img src="docs/transacoes.png" width="95%" alt="Histórico de transações">
+</p>
+
+Para executar a demonstração, inicie a API e ajuste a porta utilizada no arquivo:
+
+```text
+front-end/script.js
+```
+
+```javascript
+const API_BASE = 'http://localhost:5004/api';
+```
+
+Substitua `5004` pela porta em que a API estiver sendo executada e abra o arquivo `front-end/index.html`.
 
 ---
 
